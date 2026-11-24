@@ -25,16 +25,6 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-/**
- * The drawing surface. It only DRAWS and forwards input; the rules are in GameEngine.
- *
- * MODULE 7 PROOF (Swing): JPanel subclass, paintComponent(), javax.swing.Timer fires an
- * ActionEvent every tick on the Event Dispatch Thread (so no extra locking is needed).
- * MODULE 7 PROOF (Event handling): key bindings (InputMap/ActionMap) connect user actions
- * to handlers - user action -> event -> listener -> handler.
- * MODULE 4 PROOF (Polymorphism): paintComponent loops over GameObject references; Java
- * calls the right draw() for Snake, NormalFood or GoldenFood at run time.
- */
 public class GamePanel extends JPanel implements ActionListener {
 
     private final GameEngine engine = new GameEngine();
@@ -66,7 +56,6 @@ public class GamePanel extends JPanel implements ActionListener {
         bind("ENTER", this::startOrRestart);
     }
 
-    /** MODULE 5 PROOF: lambdas / Runnable instead of one anonymous class per key. */
     private void bind(String keyName, Runnable action) {
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(keyName), keyName);
         getActionMap().put(keyName, new AbstractAction() {
@@ -192,7 +181,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
         drawBackground(g2);
 
-        // MODULE 2 + 4 PROOF: array of the base type holding different subclasses
         GameObject[] objects = (engine.getFood() == null)
                 ? new GameObject[]{engine.getSnake()}
                 : new GameObject[]{engine.getFood(), engine.getSnake()};
