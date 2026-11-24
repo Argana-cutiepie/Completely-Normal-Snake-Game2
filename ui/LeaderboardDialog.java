@@ -18,20 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-/**
- * Leaderboard window = the CRUD screen of the application.
- *
- * MODULE 8 PROOF: JTable + DefaultTableModel display rows read through the DAO;
- * buttons trigger READ (search / refresh), UPDATE (rename) and DELETE; CREATE happens when
- * a game ends. Workflow: select row -> validate -> execute SQL -> refresh model -> feedback.
- * MODULE 7 PROOF (Layout managers): BorderLayout (frame regions), FlowLayout (button rows),
- * nested JPanels; controls: JLabel, JTextField, JButton, JTable.
- * MODULE 8 PROOF (error handling): DatabaseException messages are safe to show - raw SQL
- * errors never reach the user.
- */
 public class LeaderboardDialog extends JDialog {
 
-    /** MODULE 2 PROOF: String[] array used as the table's column names. */
     private static final String[] COLUMNS = {"ID", "Player", "Score", "Difficulty", "Played at"};
 
     private final ScoreService service;
