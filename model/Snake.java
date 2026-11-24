@@ -9,15 +9,6 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-/**
- * The player's snake.
- *
- * MODULE 3 PROOF (has-a): Snake HAS-A body made of Cell objects.
- * MODULE 4 PROOF (is-a + multiple interfaces): Snake IS-A GameObject (so it is
- * Drawable) and also implements Resettable.
- * MODULE 6 PROOF (Collections): the body is a LinkedList used as a Deque - cheap to
- * add a new head and remove the tail every tick; hitsSelf() uses an Iterator.
- */
 public class Snake extends GameObject implements Resettable {
 
     private final Deque<Cell> body = new LinkedList<>();
@@ -40,7 +31,7 @@ public class Snake extends GameObject implements Resettable {
     private void placeAtStart() {
         body.clear();
         direction = Direction.RIGHT;
-        for (int i = 0; i < startLength; i++) {          // MODULE 2 PROOF: for loop
+        for (int i = 0; i < startLength; i++) {         
             body.addLast(new Cell(start.col() - i, start.row()));
         }
         setPosition(body.peekFirst());
@@ -50,7 +41,6 @@ public class Snake extends GameObject implements Resettable {
         return direction;
     }
 
-    /** MODULE 3 PROOF: a setter that protects the object's rules (no 180-degree turns). */
     public void setDirection(Direction newDirection) {
         if (newDirection == null || newDirection == direction.opposite()) {
             return;
@@ -62,7 +52,6 @@ public class Snake extends GameObject implements Resettable {
         return getPosition().step(direction);
     }
 
-    /** Moves one cell; when {@code grow} is true the tail stays, so the snake gets longer. */
     public void advance(boolean grow) {
         Cell next = peekNextHead();
         body.addFirst(next);
@@ -73,9 +62,9 @@ public class Snake extends GameObject implements Resettable {
     }
 
     public boolean hitsSelf() {
-        Iterator<Cell> it = body.iterator();             // MODULE 6 PROOF: explicit Iterator
+        Iterator<Cell> it = body.iterator();          
         Cell head = it.next();
-        while (it.hasNext()) {                           // MODULE 2 PROOF: while loop
+        while (it.hasNext()) {                          
             if (it.next().equals(head)) {
                 return true;
             }
@@ -93,7 +82,7 @@ public class Snake extends GameObject implements Resettable {
 
     @Override
     public void draw(Graphics2D g, int cell) {
-        Iterator<Cell> it = body.descendingIterator();   // tail first, so the head is drawn on top
+        Iterator<Cell> it = body.descendingIterator(); 
         int index = body.size() - 1;
         int size = cell - 4;
         while (it.hasNext()) {
@@ -116,8 +105,7 @@ public class Snake extends GameObject implements Resettable {
         int hy = getPosition().row() * cell;
         int cx = hx + cell / 2;
         int cy = hy + cell / 2;
-
-        // MODULE 2 PROOF (arrays): a 2D int array holds the two eye positions.
+        
         int[][] eyes = switch (direction) {
             case UP -> new int[][]{{hx + 6, hy + 6}, {hx + 15, hy + 6}};
             case DOWN -> new int[][]{{hx + 6, hy + 15}, {hx + 15, hy + 15}};
@@ -131,7 +119,6 @@ public class Snake extends GameObject implements Resettable {
             g.fillOval(eye[0] + 1, eye[1] + 1, 2, 2);
         }
 
-        // Forked tongue, drawn along the direction of travel.
         int dx = direction.dx();
         int dy = direction.dy();
         int bx = cx + dx * (cell / 2);
