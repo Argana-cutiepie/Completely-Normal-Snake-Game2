@@ -6,14 +6,6 @@ import com.mycompany.snakegame.model.Difficulty;
 import com.mycompany.snakegame.service.ScoreService;
 import java.util.function.Consumer;
 
-/**
- * Saves a score to the database on its own thread so the game window never freezes.
- *
- * MODULE 7 PROOF (Runnable): the TASK (this class) is separate from the THREAD that
- * runs it: new Thread(new ScoreSaver(...)).start().
- * MODULE 5 PROOF: multi-catch, finally, and a Consumer lambda callback.
- * MODULE 8 PROOF: calls the service/DAO layer, never SQL directly.
- */
 public class ScoreSaver implements Runnable {
 
     private final ScoreService service;
