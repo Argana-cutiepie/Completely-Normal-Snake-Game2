@@ -4,11 +4,6 @@ import com.mycompany.snakegame.util.GameConfig;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-/**
- * MODULE 4 PROOF (Polymorphism): the engine holds a plain Food reference. At run
- * time Java dispatches draw()/getPoints() to this class when the object is golden
- * (dynamic method dispatch).
- */
 public class GoldenFood extends Food {
 
     public GoldenFood(Cell position) {
@@ -32,7 +27,7 @@ public class GoldenFood extends Food {
 
     @Override
     public void draw(Graphics2D g, int cell) {
-        super.draw(g, cell);   // MODULE 4 PROOF: super.method() reuses the parent's drawing
+        super.draw(g, cell);   
         int x = getPosition().col() * cell;
         int y = getPosition().row() * cell;
         g.setColor(Color.WHITE);                                  // little sparkle
