@@ -4,16 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-/**
- * Central place for constants and tunable settings.
- *
- * MODULE 1 PROOF (program structure): a class with static members, no main().
- * MODULE 2 PROOF: constants use 'final' with UPPER_SNAKE_CASE; the Scanner reads
- * text and String.split / Integer.parseInt convert it into numbers.
- * MODULE 5 PROOF: a TEXT BLOCK holds the default settings and the wrapper class
- * Integer is used for the map values (autoboxing / unboxing).
- * MODULE 6 PROOF: HashMap stores key -> value settings.
- */
 public final class GameConfig {
 
     public static final int COLUMNS = 24;
