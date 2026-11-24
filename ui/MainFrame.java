@@ -24,16 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-/**
- * The application window and the glue between all layers.
- *
- * MODULE 7 PROOF (Swing): JFrame (top-level container) -> JPanels -> controls, laid out with
- * BorderLayout + GridLayout + FlowLayout; every button uses an ActionListener lambda.
- * MODULE 4 PROOF: implements the GameListener interface.
- * MODULE 7 PROOF (Threads): starts the ClockThread, launches a ScoreSaver thread per saved
- * score, uses SwingUtilities.invokeLater to touch Swing from other threads, and join() on exit.
- * MODULE 3 PROOF (association): MainFrame uses GamePanel, ScoreService and SessionStats.
- */
 public class MainFrame extends JFrame implements GameListener {
 
     private final GamePanel panel = new GamePanel();
@@ -229,7 +219,6 @@ public class MainFrame extends JFrame implements GameListener {
         panel.requestFocusInWindow();
     }
 
-    /** MODULE 7 PROOF: interrupt the clock thread and join() so threads end cleanly. */
     private void shutdown() {
         clock.interrupt();
         try {
