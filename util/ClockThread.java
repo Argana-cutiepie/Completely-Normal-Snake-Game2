@@ -2,14 +2,6 @@ package com.mycompany.snakegame.util;
 
 import java.util.function.IntConsumer;
 
-/**
- * Background stopwatch for the play time.
- *
- * MODULE 7 PROOF (Threads): extends Thread, overrides run(), uses sleep(), and stops
- * COOPERATIVELY through interrupt() (never the deprecated Thread.stop()).
- * Lifecycle: NEW (constructor) -> RUNNABLE (start) -> TIMED_WAITING (sleep) -> TERMINATED.
- * MODULE 5 PROOF: IntConsumer is a functional interface - the caller passes a lambda.
- */
 public class ClockThread extends Thread {
 
     private final IntConsumer onTick;
