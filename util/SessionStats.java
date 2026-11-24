@@ -1,12 +1,5 @@
 package com.mycompany.snakegame.util;
 
-/**
- * Counters shared by the Swing thread (EDT) and the background score-saver thread.
- *
- * MODULE 7 PROOF (Synchronization): every method that reads or writes the shared
- * fields is 'synchronized', so two threads cannot interleave "read - add 1 - write"
- * and lose an update (a race condition).
- */
 public class SessionStats {
 
     private int gamesPlayed;
