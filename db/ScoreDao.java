@@ -9,19 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Data-access layer: the ONLY class that contains SQL.
- *
- * MODULE 8 PROOF:
- *  - CRUD: INSERT (insert), SELECT (findAll, findByPlayer), UPDATE (updatePlayer),
- *    DELETE (deleteById).
- *  - PreparedStatement with '?' placeholders = parameterized SQL, the primary defense
- *    against SQL injection. No user text is ever concatenated into SQL.
- *  - executeQuery() returns a ResultSet; executeUpdate() returns the affected-row count.
- *  - try-with-resources closes Connection, PreparedStatement and ResultSet.
- *  - SQLException is caught, logged technically, and re-thrown as a safe DatabaseException.
- * MODULE 5 PROOF: implements the generic Dao<Score, Integer> (wrapper class Integer as the key).
- */
 public class ScoreDao implements Dao<Score, Integer> {
 
     private static final String INSERT =
@@ -65,7 +52,7 @@ public class ScoreDao implements Dao<Score, Integer> {
     public List<Score> findByPlayer(String text) throws DatabaseException {
         try (Connection con = Database.connect();
              PreparedStatement ps = con.prepareStatement(SELECT_BY_PLAYER)) {
-            ps.setString(1, "%" + text + "%");        // the value is bound, not concatenated into the SQL
+            ps.setString(1, "%" + text + "%");       
             try (ResultSet rs = ps.executeQuery()) {
                 return readRows(rs);
             }
@@ -80,7 +67,7 @@ public class ScoreDao implements Dao<Score, Integer> {
              PreparedStatement ps = con.prepareStatement(UPDATE_PLAYER)) {
             ps.setString(1, newName);
             ps.setInt(2, id);
-            return ps.executeUpdate() > 0;            // affected-row count tells us if the id existed
+            return ps.executeUpdate() > 0;           
         } catch (SQLException e) {
             Database.logTechnical(e);
             throw new DatabaseException("Could not rename the player.", e);
@@ -91,7 +78,7 @@ public class ScoreDao implements Dao<Score, Integer> {
     public boolean deleteById(Integer id) throws DatabaseException {
         try (Connection con = Database.connect();
              PreparedStatement ps = con.prepareStatement(DELETE)) {
-            ps.setInt(1, id);                         // unboxing Integer -> int
+            ps.setInt(1, id);                       
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             Database.logTechnical(e);
@@ -99,7 +86,6 @@ public class ScoreDao implements Dao<Score, Integer> {
         }
     }
 
-    /** MODULE 8 PROOF: ResultSet cursor loop - next() advances, getters read the columns. */
     private static List<Score> readRows(ResultSet rs) throws SQLException {
         List<Score> list = new ArrayList<>();
         while (rs.next()) {
