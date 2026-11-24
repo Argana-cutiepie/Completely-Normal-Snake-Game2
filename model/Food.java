@@ -4,19 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-/**
- * Abstract food. Subclasses decide the points and color.
- *
- * MODULE 4 PROOF: abstract methods (getPoints, getColor) force subclasses to
- * provide an implementation; draw() is inherited and shared.
- * MODULE 3 PROOF (static members): 'spawned' belongs to the CLASS, not to one object.
- */
 public abstract class Food extends GameObject {
 
     private static int spawned = 0;
 
     protected Food(Cell position) {
-        super(position);   // MODULE 4 PROOF: super(...) calls the superclass constructor
+        super(position);  
         spawned++;
     }
 
