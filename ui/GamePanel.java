@@ -76,7 +76,6 @@ public class GamePanel extends JPanel implements ActionListener {
     // ---------------------------------------------------------------- control
 
     public void startOrRestart() {
-        // MODULE 5 PROOF: enhanced switch statement over an enum
         switch (engine.getState()) {
             case READY -> beginRun();
             case GAME_OVER, WON -> newGame();
@@ -154,7 +153,7 @@ public class GamePanel extends JPanel implements ActionListener {
         engine.tick();
 
         Food eaten = engine.getLastEaten();
-        if (eaten instanceof GoldenFood gold) {              // MODULE 5 PROOF: pattern matching instanceof
+        if (eaten instanceof GoldenFood gold) {             
             System.out.printf("Golden apple eaten: +%d points%n", gold.getPoints());
         }
         if (engine.getScore() != before) {
